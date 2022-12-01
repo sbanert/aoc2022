@@ -8,11 +8,10 @@ inputFileName = "input.txt"
 main = do
   testCalories <- getCaloriesFromFile testFileName
   mainCalories <- getCaloriesFromFile inputFileName
-  print testCalories
-  putStrLn ("Part 1 Test: " ++ (show $ biggestElf testCalories))
-  putStrLn ("Part 1 Real: " ++ (show $ biggestElf mainCalories))
-  putStrLn ("Part 2 Test: " ++ (show $ topThreeElves testCalories))
-  putStrLn ("Part 2 Real: " ++ (show $ topThreeElves mainCalories))
+  putStrLn $ "Part 1 Test: " ++ (show $ topElves 1 testCalories)
+  putStrLn $ "Part 1 Real: " ++ (show $ topElves 1 mainCalories)
+  putStrLn $ "Part 2 Test: " ++ (show $ topElves 3 testCalories)
+  putStrLn $ "Part 2 Real: " ++ (show $ topElves 3 mainCalories)
 
 getCaloriesFromFile :: String -> IO [[Int]]
 getCaloriesFromFile fileName = do
@@ -22,11 +21,8 @@ getCaloriesFromFile fileName = do
 getCaloriesFromStrings :: [String] -> [[Int]]
 getCaloriesFromStrings contents = map (map read) $ splitOn [""] contents
 
-biggestElf :: [[Int]] -> Int
-biggestElf calories = maximum (map sum calories)
-
-topThreeElves :: [[Int]] -> Int
-topThreeElves calories = sum $ take 3 $ sortBy (flip compare) (map sum calories)
+topElves :: Int -> [[Int]] -> Int
+topElves n calories = sum $ take n $ sortBy (flip compare) (map sum calories)
 
 
 
