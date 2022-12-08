@@ -37,9 +37,6 @@ input = many $ commandLine <|> dirLine <|> fileLine where
 -- I guess, Unknown is unnecessary, and the trees could just be initialised with empty lists. Oh well ...
 data DirectoryTree = Unknown | DTree [(String, Int)] [(String, DirectoryTree)] deriving Show
 
-startingTree :: DirectoryTree
-startingTree = Unknown
-
 apply :: (DirectoryTree, [String]) -> Line -> (DirectoryTree, [String])
 apply (t, ds) (Comm (CD (In s))) = (t, ds ++ [s])
 apply (t, ds) (Comm (CD Out)) = (t, init ds)
